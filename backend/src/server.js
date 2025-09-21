@@ -11,9 +11,11 @@ const app = express()
 
 const PORT = process.env.PORT
 
+app.use(express.json())
+
 app.listen(PORT,()=>{
   console.log(`Server is running on ${PORT}`)
   connectDB()
 })
 
-app.get("/api/auth",authRoutes)
+app.use("/api/auth", authRoutes)
