@@ -101,3 +101,58 @@ export const logout = (req, res) => {
   res.clearCookie("jwt")
   res.status(200).json({ success: true, message: "Logged out successfully" });
 };
+
+// Onboarding route
+export const onboard = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const { fullName, bio, nativeLanguage, learningLanguage, location } = req.body
+
+    //checking if everything is present or not
+    if (!fullName || !bio || !nativeLanguage || !learningLanguage || !location) {
+      return res.status(400).json({
+        message: "All fields required",
+        missingFields: [ //just missing values isthundhii
+          !fullName && "fullName",
+          !bio && "bio",
+          !nativeLanguage && "nativeLanguage",
+          !learningLanguage && "learningLanguage",
+          !location && "location",
+        ].filter(Boolean), //gives only which are not present 
+      });
+    }
+
+    //updating the details of the existing user by adding other fields like bio,...
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      fullName,
+      bio,
+      nativeLanguage,
+      learningLanguage,
+      location,
+      isOnboarded: true,
+    }, { new: true }); //this new:true....if clg chesthe by default mongo manaki old doc echi then update chesthundhi..now update chesina doc ee isthundhi
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    //updating user info in stream
+    try {
+      await upsertStreamUser({
+        id: updatedUser._id.toString(),
+        name: updatedUser.fullName,
+        image: updatedUser.profilePic || "https://avatar.iran.liara.run/public/1.png"
+      })
+      console.log(`Stream User updated for ${updatedUser.fullName} with id ${updatedUser._id} after onboarding`)
+    } catch (streamError) {
+      console.log(`error updating Stream User!!`)
+    }
+
+    res.status(200).json({ success: true, message: "Onboarding successful" });
+
+  } catch (error) {
+    console.log('error in onboard controller', error)
+    res.status(500).json({ message: "Internal server error" })
+  }
+}
