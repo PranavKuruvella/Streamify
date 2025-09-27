@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 import cookieParser from 'cookie-parser' //to check the jwt token for autho which is present inside req.cookie
 
 import authRoutes from './routes/auth.route.js'
+import userRoutes from './routes/user.route.js'
+
 import { connectDB } from './lib/db.js'
 
 dotenv.config()
@@ -20,3 +22,4 @@ app.listen(PORT,()=>{
 })
 
 app.use("/api/auth", authRoutes)
+app.use("/api/users", userRoutes)
