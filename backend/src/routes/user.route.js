@@ -1,6 +1,6 @@
 import express from 'express'
 import { protectRoute } from '../middleware/auth.middleware.js'
-import { acceptFriendRequest, getMyFriends, getRecommendedUser, sendFriendRequest } from '../controllers/user.controller.js'
+import { acceptFriendRequest, getFriendRequests, getMyFriends, getOutGoingFriendReqs, getRecommendedUser, sendFriendRequest } from '../controllers/user.controller.js'
 
 const router = express.Router()
 
@@ -11,5 +11,7 @@ router.get("/friends", getMyFriends) //will give the friends of the user
 
 router.post("/friend-request/:id", sendFriendRequest)
 router.put("/friend-request/:id/accept", acceptFriendRequest) //manam vere valla req ni accept chesthe change in db chese route edhii...
+router.get("/friend-requests", getFriendRequests) //notifications tab laga pampina or ochina req chupisthundhi
+router.get("/outgoing-friend-request", getOutGoingFriendReqs) 
 
 export default router
