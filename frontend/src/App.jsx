@@ -8,10 +8,12 @@ import CallPage from "./pages/CallPage.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
 import OnboardingPage from "./pages/OnBoardingPage.jsx";
 import PageLoader from "./components/PageLoader.jsx";
+import Layout from "./components/Layout.jsx";
 
 import { Toaster } from "react-hot-toast";
 
 import useAuthUser from "./hooks/useAuthUser.js";
+
 
 
 const App = () => {
@@ -29,9 +31,10 @@ const App = () => {
         <Route
           path="/"
           element={
-            isAuthenticated && isOnboarded ? ( 
-              //rendu true aithe direct ga homepage ki potha else auth lekapothe /login , auth aindhi but onboard false unte /onboarding
-              <HomePage />
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
@@ -53,7 +56,9 @@ const App = () => {
           path="/notifications"
           element={
             isAuthenticated && isOnboarded ? (
-              <NotificationsPage />
+              <Layout showSidebar={true}>
+                <NotificationsPage />
+              </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
@@ -74,7 +79,9 @@ const App = () => {
           path="/chat/:id"
           element={
             isAuthenticated && isOnboarded ? (
-              <ChatPage />
+              <Layout showSidebar={false}>
+                <ChatPage />
+              </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )

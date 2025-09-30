@@ -11,11 +11,21 @@ export const login = async (loginData) => {
 }
 
 export const getAuthUser = async () => {
-  const res = await axiosInstance.get('/auth/me')
-  return res.data
-}
+  try {
+    const res = await axiosInstance.get("/auth/me");
+    return res.data;
+  } catch (error) {
+    console.log("Error in getAuthUser:", error);
+    return null; //logout ki kavallli as Authuser is going to become empty
+  }
+};
 
 export const completeOnboarding = async (userData) => {
   const res = await axiosInstance.post('/auth/onboarding', userData)
   return res.data
 }
+
+export const logout = async () => {
+  const response = await axiosInstance.post("/auth/logout");
+  return response.data;
+};
