@@ -13,4 +13,8 @@ router.post('/logout', logout);
 router.post('/onboarding', protectRoute, onboard)
 //new users signup chesina taravatha valla details like languages and all ee route lo chestham...only for signup and this should be protected as it need to be accessed after signup only
 
+router.get("/me",protectRoute,(req,res)=>{
+  res.status(200).json({success:true,user:req.user})
+})
+
 export default router;
