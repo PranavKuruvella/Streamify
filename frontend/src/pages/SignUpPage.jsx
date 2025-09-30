@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { ShipWheelIcon } from "lucide-react";
 import { Link } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {signup} from "../lib/api.js";
+import useSignUp from "../hooks/useSignUp.js";
 
 const SignUpPage = () => {
 	const [signupData, setSignupData] = useState({
@@ -11,16 +10,8 @@ const SignUpPage = () => {
 		password: "",
 	});
 
-	const queryClient = useQueryClient();
+	const { mutate: signupMutation, isPending, error } = useSignUp(); //custom hook anthe
 
-
-	const { mutate: signupMutation, isPending, error } = useMutation({
-		mutationFn: signup,
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['authUser'] });
-		},
-
-	})
 	// this part is working fine fix aipoindhi
 
 	/* this part is the core part of the auth thing... line 17-23 lo 29 lo singupData ni save chesthunam..after succesfull saving ee useMutation lo automatic ga metadata kind of save avthundhi adhi pendingaa err ochandha ani..so onSuccess lo App.jsx lo unna Data ni fetch chesi malla update cheyu ani chepthunam..akada unna data update aii malla routes lo check avthundhi for redirection */

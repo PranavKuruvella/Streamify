@@ -23,6 +23,7 @@ const OnBoardingPage = () => {
 		profilePic: authUser?.profilePic || "",
 	});
 
+	//custom kook rayochu as we did for signup or login but toast work avvatle
 	const { mutate: onboardingMutation, isPending, error } = useMutation({
 		mutationFn: completeOnboarding,
 		onSuccess: () => {
