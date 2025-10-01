@@ -10,7 +10,7 @@ const SignUpPage = () => {
 		password: "",
 	});
 
-	const { mutate: signupMutation, isPending, error } = useSignUp(); //custom hook anthe
+	const { signupMutation, isPending, error } = useSignUp(); //custom hook anthe
 
 	// this part is working fine fix aipoindhi
 
