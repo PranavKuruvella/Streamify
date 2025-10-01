@@ -70,7 +70,8 @@ export const sendFriendRequest = async (req, res) => {
       return res.status(400).json({ message: "Friend request already sent" })
     }
 
-    const FriendRequest = await FriendRequest.create({
+
+    await FriendRequest.create({
       sender: myId,
       recipient: recipientId
     })
