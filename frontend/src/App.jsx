@@ -13,12 +13,14 @@ import Layout from "./components/Layout.jsx";
 import { Toaster } from "react-hot-toast";
 
 import useAuthUser from "./hooks/useAuthUser.js";
+import { useThemeStore } from "./store/useThemeStore.jsx";
 
 
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
 
+const {theme,setTheme} = useThemeStore()
 
   const isAuthenticated = Boolean(authUser);
   const isOnboarded = authUser?.isOnboarded;
@@ -26,7 +28,7 @@ const App = () => {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen" data-theme="night">
+    <div className="h-screen" data-theme={theme}>
       <Routes>
         <Route
           path="/"
