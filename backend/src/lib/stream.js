@@ -23,11 +23,13 @@ export const upsertStreamUser = async (userdata) => { // saves the user to strea
   }
 }
 
-export const generateStreamToken = async (userId)=>{
+export const generateStreamToken = async (userId) => {
   try {
-    const userIdStr = userId.toString()
-    const token = streamClient.createToken(userIdStr)
+    const userIdStr = userId.toString();
+    const token = streamClient.createToken(userIdStr);
+    return token;
   } catch (error) {
     console.log('error in generateStreamToken', error);
+    throw error;
   }
 }
