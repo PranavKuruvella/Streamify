@@ -54,30 +54,15 @@ const HomePage = () => {
 
 				{/* Friends req top bar */}
 
-				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-					<h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Friends</h2>
+				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-4">
+					
 					<Link to="/notifications" className="btn btn-outline btn-sm">
 						<UsersIcon className="mr-2 size-4" />
 						Friend Requests
 					</Link>
 				</div>
 
-				{/* Friends list */}
 
-				{loadingFriends ? ( //loading animation chupisthunam
-					<div className="flex justify-center py-12">
-						<span className="loading loading-spinner loading-lg" />
-					</div>
-				) : friends.length === 0 ? (
-					<NoFriendsFound /> //friends lekapothe
-				) : (
-					//friends ni chupisthunam
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-						{friends.map((friend) => (
-							<FriendCard key={friend._id} friend={friend} />
-						))}
-					</div>
-				)}
 
 				{/* Recommended users */}
 

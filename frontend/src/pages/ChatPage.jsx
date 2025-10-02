@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate, Link, Navigate } from "react-router";  // <-- import useNavigate
 import useAuthUser from "../hooks/useAuthUser.js";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api.js";
@@ -16,6 +16,7 @@ const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
 const ChatPage = () => {
 	const { id: targetUserId } = useParams();
+	const navigate = useNavigate();  // <-- create navigate function
 
 	const [chatClient, setChatClient] = useState(null);
 	const [channel, setChannel] = useState(null);
@@ -52,10 +53,6 @@ const ChatPage = () => {
 
 				const channelId = [authUser._id, targetUserId].sort().join("-");
 
-				// you and me
-				// if i start the chat => channelId: [myId, yourId]
-				// if you start the chat => channelId: [yourId, myId]  => [myId,yourId]
-
 				//creates a channel
 				const currChannel = client.channel("messaging", channelId, {
 					members: [authUser._id, targetUserId],
@@ -91,10 +88,10 @@ const ChatPage = () => {
 	if (loading || !chatClient || !channel) return <ChatLoader />;
 
 	return (
-		<div className="h-[93vh]">
+		<div className="md:h-[93vh] h-[90vh]">
 			<Chat client={chatClient}>
 				<Channel channel={channel}>
-					<div className="w-full relative">
+					<div className="w-full relative m-2">
 						<CallButton handleVideoCall={handleVideoCall} />
 						<Window>
 							<ChannelHeader />
