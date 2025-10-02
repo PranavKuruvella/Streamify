@@ -127,6 +127,7 @@ streamify/
 - **Axios** (API requests)
 - **React Router** (routing)
 - **Custom Hooks** (authentication, theme, etc.)
+- **TanStack Query**
 
 ### Backend
 - **Node.js**
